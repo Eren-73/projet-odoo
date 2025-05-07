@@ -1,0 +1,56 @@
+<odoo>
+    <!-- Vue Formulaire des Factures -->
+    <record id="view_parc_facture_form" model="ir.ui.view">
+        <field name="name">parc.facture.form</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <form string="Facture">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="contrat_id"/>
+                        <field name="invoice_date"/>
+                        <field name="invoice_date_due"/>
+                        <field name="amount_total" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Lignes de Facture">
+                            <field name="invoice_line_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="quantity"/>
+                                        <field name="price_unit"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue Liste des Factures -->
+    <record id="view_parc_facture_list" model="ir.ui.view">
+        <field name="name">parc.facture.list</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <list string="Liste des Factures">
+                <field name="name"/>
+                <field name="contrat_id"/>
+                <field name="invoice_date"/>
+                <field name="invoice_date_due"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from . import models
+# Fichier: parc_management/models/__init__.py
+from . import client
+from . import contrat
+from . import account_move

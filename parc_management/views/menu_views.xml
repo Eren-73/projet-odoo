@@ -1,0 +1,66 @@
+<odoo>
+    <!-- Menu Principal -->
+    <menuitem id="menu_parc_management_root" name="Parc Management" sequence="1"/>
+
+    <!-- Menu Clients avec sous-menus Liste et Kanban -->
+    <menuitem id="menu_parc_management_client"
+              name="Clients"
+              parent="menu_parc_management_root"/>
+
+    <menuitem id="menu_parc_client_list"
+              name="Liste des Clients"
+              parent="menu_parc_management_client"
+              action="action_parc_client_list"/>
+
+    <menuitem id="menu_parc_client_kanban"
+              name="Clients (Kanban)"
+              parent="menu_parc_management_client"
+              action="action_parc_client_kanban"/>
+
+    <!-- Menu Contrats avec sous-menus Liste et Kanban -->
+    <menuitem id="menu_parc_management_contrat"
+              name="Contrats"
+              parent="menu_parc_management_root"/>
+
+    <!-- Actions pour les Contrats -->
+    <record id="action_parc_contrat_list" model="ir.actions.act_window">
+        <field name="name">Liste des Contrats</field>
+        <field name="res_model">parc.contrat</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="view_id" ref="parc_management.view_parc_contrat_list"/>
+    </record>
+
+    <record id="action_parc_contrat_kanban" model="ir.actions.act_window">
+        <field name="name">Contrats (Kanban)</field>
+        <field name="res_model">parc.contrat</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="parc_management.view_parc_contrat_kanban"/>
+    </record>
+
+    <menuitem id="menu_parc_management_contrat_list"
+              name="Liste des Contrats"
+              parent="menu_parc_management_contrat"
+              action="action_parc_contrat_list"/>
+
+    <menuitem id="menu_parc_management_contrat_kanban"
+              name="Contrats (Kanban)"
+              parent="menu_parc_management_contrat"
+              action="action_parc_contrat_kanban"/>
+
+    <!-- Menu Factures -->
+    <menuitem id="menu_parc_management_facture" name="Factures" parent="menu_parc_management_root" sequence="3"/>
+
+    <!-- Actions pour les Factures -->
+    <record id="action_parc_facture_list" model="ir.actions.act_window">
+        <field name="name">Liste des Factures</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type', '=', 'out_invoice')]</field>
+        <field name="context">{'default_move_type': 'out_invoice'}</field>
+    </record>
+
+    <menuitem id="menu_parc_facture_list"
+              name="Liste des Factures"
+              parent="menu_parc_management_facture"
+              action="action_parc_facture_list"/>
+</odoo>

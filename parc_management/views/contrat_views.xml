@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_parc_contrat_form" model="ir.ui.view">
+        <field name="name">parc.contrat.form</field>
+        <field name="model">parc.contrat</field>
+        <field name="arch" type="xml">
+            <form string="Contrat">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="client_id"/>
+                        <field name="date_debut"/>
+                        <field name="date_fin"/>
+                        <field name="montant"/>
+                        <field name="frequence"/>
+                        <field name="statut" readonly="1"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Factures">
+                            <field name="facture_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="invoice_date"/>
+                                    <field name="invoice_date_due"/>
+                                    <field name="amount_total"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="action_generer_factures" type="object" string="Générer Facture" class="oe_highlight"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
