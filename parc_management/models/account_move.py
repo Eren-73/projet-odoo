@@ -1,3 +1,4 @@
+# models/account_move_extension.py
 from odoo import models, fields
 
 class AccountMove(models.Model):

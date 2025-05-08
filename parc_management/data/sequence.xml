@@ -1,0 +1,9 @@
+<odoo>
+  <data noupdate="1">
+    <record id="seq_parc_intervention" model="ir.sequence">
+      <field name="name">Intervention Parc</field>
+      <field name="code">parc.intervention</field>
+      <field name="padding">4</field>
+    </record>
+  </data>
+</odoo>

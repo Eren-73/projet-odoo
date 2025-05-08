@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="ir_cron_generate_contract_invoices" model="ir.cron">
+      <field name="name">Génération automatique des factures de contrats</field>
+      <!-- référence au modèle parc.contrat -->
+      <field name="model_id" ref="model_parc_contrat"/>
+      <!-- on appelle notre méthode -->
+      <field name="state">code</field>
+      <field name="code">model._cron_generate_invoices()</field>
+      <!-- exécution tous les jours -->
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <!-- ne pas lancer les runs manqués au prochain cron -->
+      <field name="doall" eval="False"/>
+      <field name="active" eval="True"/>
+    </record>
+  </data>
+</odoo>

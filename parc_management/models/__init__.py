@@ -4,4 +4,6 @@ from . import models
 # Fichier: parc_management/models/__init__.py
 from . import client
 from . import contrat
-from . import account_move
+from . import facture
+from . import equipement
+from . import  intervention

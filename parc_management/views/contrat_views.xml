@@ -1,38 +1,93 @@
 <odoo>
+  <data>
+    <!-- Vue Formulaire des Contrats -->
     <record id="view_parc_contrat_form" model="ir.ui.view">
-        <field name="name">parc.contrat.form</field>
-        <field name="model">parc.contrat</field>
-        <field name="arch" type="xml">
-            <form string="Contrat">
-                <sheet>
+      <field name="name">parc.contrat.form</field>
+      <field name="model">parc.contrat</field>
+      <field name="arch" type="xml">
+        <form string="Contrat">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="client_id"/>
+              <field name="date_debut"/>
+              <field name="date_fin"/>
+              <field name="montant"/>
+              <field name="frequence"/>
+              <field name="statut" readonly="1"/>
+              <field name="description"/>
+            </group>
+            <notebook>
+              <page string="Factures">
+                <field name="facture_ids" readonly="1">
+                  <list string="Factures liées">
+                    <field name="name"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_date_due"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                  </list>
+                  <form string="Détail de la Facture">
                     <group>
-                        <field name="name"/>
-                        <field name="client_id"/>
-                        <field name="date_debut"/>
-                        <field name="date_fin"/>
-                        <field name="montant"/>
-                        <field name="frequence"/>
-                        <field name="statut" readonly="1"/>
-                        <field name="description"/>
+                      <field name="name"/>
+                      <field name="invoice_date"/>
+                      <field name="invoice_date_due"/>
+                      <field name="amount_total"/>
+                      <field name="state"/>
                     </group>
-                    <notebook>
-                        <page string="Factures">
-                            <field name="facture_ids" readonly="1">
-                                <list>
-                                    <field name="name"/>
-                                    <field name="invoice_date"/>
-                                    <field name="invoice_date_due"/>
-                                    <field name="amount_total"/>
-                                    <field name="state"/>
-                                </list>
-                            </field>
-                        </page>
-                    </notebook>
-                    <footer>
-                        <button name="action_generer_factures" type="object" string="Générer Facture" class="oe_highlight"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
+                  </form>
+                </field>
+              </page>
+            </notebook>
+            <footer>
+              <button name="action_generer_factures"
+                      type="object"
+                      string="Générer Facture"
+                      class="oe_highlight"
+                      invisible="statut != 'actif'"/>
+            </footer>
+          </sheet>
+        </form>
+      </field>
     </record>
+
+    <!-- Vue Liste des Contrats -->
+    <record id="view_parc_contrat_list" model="ir.ui.view">
+      <field name="name">parc.contrat.list</field>
+      <field name="model">parc.contrat</field>
+      <field name="arch" type="xml">
+        <list string="Liste des Contrats">
+          <field name="name"/>
+          <field name="client_id"/>
+          <field name="date_debut"/>
+          <field name="date_fin"/>
+          <field name="montant"/>
+          <field name="frequence"/>
+          <field name="statut"/>
+          <field name="facture_count" string="Nombre de Factures"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Vue Kanban des Contrats -->
+    <record id="view_parc_contrat_kanban" model="ir.ui.view">
+      <field name="name">parc.contrat.kanban</field>
+      <field name="model">parc.contrat</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <templates>
+            <t t-name="kanban-card">
+              <div class="oe_kanban_card">
+                <strong><field name="name"/></strong>
+                <div>Client: <field name="client_id"/></div>
+                <div>Montant: <field name="montant"/></div>
+                <div>Statut: <field name="statut"/></div>
+                <div>Factures: <t t-esc="record.facture_count.raw"/></div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+  </data>
 </odoo>

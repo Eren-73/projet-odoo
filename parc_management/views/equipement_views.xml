@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Formulaire Équipement -->
+    <record id="view_parc_equipement_form" model="ir.ui.view">
+      <field name="name">parc.equipement.form</field>
+      <field name="model">parc.equipement</field>
+      <field name="arch" type="xml">
+        <form string="Équipement">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="serial_number" string="N° de série"/>
+              <field name="marque"/>
+              <field name="modele" string="Modèle"/>
+              <field name="date_achat" string="Date d’achat"/>
+              <field name="date_fin_garantie" string="Fin de garantie"/>
+            </group>
+            <group>
+              <field name="client_id"/>
+              <field name="contrat_id"/>
+              <field name="user_id" string="Utilisateur assigné"/>
+              <field name="statut"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Liste Équipements -->
+    <record id="view_parc_equipement_list" model="ir.ui.view">
+      <field name="name">parc.equipement.list</field>
+      <field name="model">parc.equipement</field>
+      <field name="arch" type="xml">
+        <list string="Liste des Équipements">
+          <field name="name"/>
+          <field name="serial_number"/>
+          <field name="client_id"/>
+          <field name="contrat_id"/>
+          <field name="date_achat"/>
+          <field name="statut"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Kanban Équipements -->
+    <record id="view_parc_equipement_kanban" model="ir.ui.view">
+      <field name="name">parc.equipement.kanban</field>
+      <field name="model">parc.equipement</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="statut"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card">
+                <strong><field name="name"/></strong>
+                <div>Client: <field name="client_id"/></div>
+                <div>Modèle: <field name="modele"/></div>
+                <div>Statut: <field name="statut"/></div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,4 +1,4 @@
-# parc_management/__manifest__.py
+# -*- coding: utf-8 -*-
 {
     'name': 'Parc Management - Client',
     'version': '1.0',
@@ -7,14 +7,17 @@
 Module de gestion des clients pour le parc informatique.
 """,
     'author': 'Traore Husseni',
-    'depends': ['base','account'],
+    'depends': ['base', 'account'],
     'data': [
         'security/ir.model.access.csv',
-        'data/sequence_facture.xml',
+        'data/sequence.xml',
+        'data/cron.xml',
+        'views/menu_views.xml',
         'views/client_views.xml',
+        'views/equipement_views.xml',       # <-- ajouté
+        'views/intervention_views.xml',     # <-- ajouté
         'views/contrat_views.xml',
         'views/facture_views.xml',
-        'views/menu_views.xml',
     ],
     'installable': True,
     'application': True,

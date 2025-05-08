@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Action fenêtre Intervention -->
+    <record model="ir.actions.act_window" id="action_parc_intervention">
+      <field name="name">Interventions</field>
+      <field name="res_model">parc.intervention</field>
+      <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <!-- Vue Liste des Interventions -->
+    <record model="ir.ui.view" id="view_parc_intervention_tree">
+      <field name="name">parc.intervention.tree</field>
+      <field name="model">parc.intervention</field>
+      <field name="arch" type="xml">
+        <list string="Interventions">
+          <field name="name"/>
+          <field name="client_id"/>
+          <field name="equipement_id"/>
+          <field name="date_ouverture"/>
+          <field name="state"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Vue Formulaire Intervention -->
+    <record model="ir.ui.view" id="view_parc_intervention_form">
+      <field name="name">parc.intervention.form</field>
+      <field name="model">parc.intervention</field>
+      <field name="arch" type="xml">
+        <form string="Intervention">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="client_id"/>
+              <field name="equipement_id"/>
+              <field name="technicien_id"/>
+              <field name="state"/>
+            </group>
+            <group>
+              <field name="date_ouverture"/>
+              <field name="date_cloture"/>
+            </group>
+            <group>
+              <field name="description"/>
+              <field name="resolution"/>
+            </group>
+          </sheet>
+          <footer>
+            <button name="action_resoudre" type="object" string="Marquer Résolu"
+                    invisible="state != 'en_cours'"/>
+            <button name="action_fermer" type="object" string="Fermer"
+                    invisible="state != 'resolu'"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- Menu racine Intervention -->
+    <record model="ir.ui.menu" id="menu_parc_management_intervention_root">
+      <field name="name">Interventions</field>
+      <field name="parent_id" ref="parc_management.menu_parc_management_root"/>
+      <field name="sequence">30</field>
+    </record>
+
+    <!-- Menu Liste Intervention -->
+    <record model="ir.ui.menu" id="menu_parc_management_intervention_list">
+      <field name="name">Liste</field>
+      <field name="parent_id" ref="parc_management.menu_parc_management_intervention_root"/>
+      <field name="action"    ref="parc_management.action_parc_intervention"/>
+      <field name="sequence">1</field>
+    </record>
+
+  </data>
+</odoo>
