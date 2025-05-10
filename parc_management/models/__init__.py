@@ -7,3 +7,4 @@ from . import contrat
 from . import facture
 from . import equipement
 from . import  intervention
+from . import account_move

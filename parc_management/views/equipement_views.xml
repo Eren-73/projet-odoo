@@ -11,6 +11,9 @@
           <sheet>
             <group>
               <field name="name"/>
+              <field name="product_id" string="Produit facturable"/>
+            </group>
+            <group>
               <field name="serial_number" string="N° de série"/>
               <field name="marque"/>
               <field name="modele" string="Modèle"/>
@@ -28,36 +31,39 @@
       </field>
     </record>
 
-    <!-- Liste Équipements -->
+    <!-- Liste des Équipements -->
     <record id="view_parc_equipement_list" model="ir.ui.view">
       <field name="name">parc.equipement.list</field>
       <field name="model">parc.equipement</field>
       <field name="arch" type="xml">
         <list string="Liste des Équipements">
           <field name="name"/>
-          <field name="serial_number"/>
+          <field name="product_id" string="Produit"/>
+          <field name="serial_number" string="N° de série"/>
           <field name="client_id"/>
           <field name="contrat_id"/>
-          <field name="date_achat"/>
+          <field name="date_achat" string="Achat"/>
           <field name="statut"/>
         </list>
       </field>
     </record>
 
-    <!-- Kanban Équipements -->
+    <!-- Kanban des Équipements -->
     <record id="view_parc_equipement_kanban" model="ir.ui.view">
       <field name="name">parc.equipement.kanban</field>
       <field name="model">parc.equipement</field>
       <field name="arch" type="xml">
         <kanban>
           <field name="statut"/>
+          <field name="product_id"/>
           <templates>
             <t t-name="kanban-box">
               <div class="oe_kanban_card">
                 <strong><field name="name"/></strong>
-                <div>Client: <field name="client_id"/></div>
-                <div>Modèle: <field name="modele"/></div>
-                <div>Statut: <field name="statut"/></div>
+                <div>Produit : <field name="product_id"/></div>
+                <div>Client : <field name="client_id"/></div>
+                <div>Modèle : <field name="modele"/></div>
+                <div>Statut : <field name="statut"/></div>
               </div>
             </t>
           </templates>

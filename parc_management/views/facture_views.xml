@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
     <!-- Liste des factures -->
@@ -7,9 +8,11 @@
       <field name="arch" type="xml">
         <list string="Liste des Factures">
           <field name="name"/>
+          <field name="contrat_id" string="Contrat"/>
+          <field name="partner_id" string="Client"/>
           <field name="invoice_date"/>
           <field name="invoice_date_due"/>
-          <field name="amount_total"/>
+          <field name="montant_total" string="Montant Total"/>
           <field name="state"/>
         </list>
       </field>
@@ -24,20 +27,22 @@
           <sheet>
             <group>
               <field name="name"/>
-              <field name="partner_id"/>
+              <field name="contrat_id"/>
+              <field name="partner_id" string="Client"/>
               <field name="invoice_date"/>
               <field name="invoice_date_due"/>
-              <field name="amount_total"/>
+              <field name="montant_total" string="Montant Total"/>
               <field name="state"/>
             </group>
             <notebook>
               <page string="Lignes de Facture">
                 <field name="invoice_line_ids">
-                  <list string="Lignes de facture">
+                  <list string="Lignes de facture" editable="bottom">
+                    <field name="equipement_id"/>
                     <field name="name"/>
                     <field name="quantity"/>
                     <field name="price_unit"/>
-                    <field name="price_total"/>
+                    <field name="price_subtotal" string="Montant"/>
                   </list>
                 </field>
               </page>
@@ -64,8 +69,9 @@
             <t t-name="kanban-card">
               <div class="oe_kanban_card">
                 <strong><field name="name"/></strong>
+                <div>Contrat: <field name="contrat_id"/></div>
                 <div>Client: <field name="partner_id"/></div>
-                <div>Montant: <field name="amount_total"/></div>
+                <div>Montant: <field name="montant_total"/></div>
                 <div>Statut: <field name="state"/></div>
               </div>
             </t>
