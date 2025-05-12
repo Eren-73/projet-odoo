@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="portal_ticket_list" inherit_id="portal.portal_layout" name="Mes tickets">
+    <!-- insert into the main container of every portal page -->
+    <xpath expr="//div[contains(@class,'container')]" position="inside">
+      <section class="o_portal_section">
+        <h2>Mes tickets</h2>
+        <t t-foreach="tickets" t-as="ticket">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <a t-att-href="'/my/ticket/%s' % ticket.id" class="flex-fill">
+              <t t-esc="ticket.name"/>
+            </a>
+            <span class="badge bg-secondary text-capitalize" t-esc="ticket.state"/>
+          </div>
+        </t>
+        <a href="/my/ticket/new" class="btn btn-primary mt-3">Créer un ticket</a>
+      </section>
+    </xpath>
+  </template>
+</odoo>

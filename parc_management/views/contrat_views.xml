@@ -1,116 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
-
-    <!-- Liste des contrats -->
-    <record id="view_parc_contrat_list" model="ir.ui.view">
-      <field name="name">parc.contrat.list</field>
-      <field name="model">parc.contrat</field>
-      <field name="arch" type="xml">
-        <list string="Contrats">
-          <field name="name"/>
-          <field name="client_id"/>
-          <field name="product_id"/>
-          <field name="date_debut"/>
-          <field name="date_fin"/>
-          <field name="next_invoice_date"/>
-          <field name="statut"/>
-        </list>
-      </field>
-    </record>
-
-    <!-- Kanban des contrats -->
-    <record id="view_parc_contrat_kanban" model="ir.ui.view">
-      <field name="name">parc.contrat.kanban</field>
-      <field name="model">parc.contrat</field>
-      <field name="arch" type="xml">
-        <kanban>
-          <templates>
-            <t t-name="kanban-card">
-              <div class="oe_kanban_card">
-                <strong><field name="name"/></strong>
-                <div>Client : <field name="client_id"/></div>
-                <div>Service : <field name="product_id"/></div>
-                <div>Début : <field name="date_debut"/></div>
-                <div>Fin : <field name="date_fin"/></div>
-                <div>Prochaine échéance : <field name="next_invoice_date"/></div>
-                <div>Statut : <field name="statut"/></div>
-              </div>
-            </t>
-          </templates>
-        </kanban>
-      </field>
-    </record>
-
-    <!-- Formulaire du contrat -->
+    <!-- Formulaire du Contrat -->
     <record id="view_parc_contrat_form" model="ir.ui.view">
       <field name="name">parc.contrat.form</field>
       <field name="model">parc.contrat</field>
       <field name="arch" type="xml">
         <form string="Contrat">
+          <!-- Bouton Générer Facture -->
           <header>
             <button name="generate_invoice"
                     type="object"
                     string="Générer facture"
-                    class="oe_highlight"
-                    invisible="statut != 'actif'"/>
+                    class="btn-primary"/>
           </header>
           <sheet>
             <group>
               <field name="name"/>
               <field name="client_id"/>
-              <field name="product_id"/>
-            </group>
-            <group>
               <field name="date_debut"/>
               <field name="date_fin"/>
-            </group>
-            <group>
-              <field name="montant"/>
               <field name="frequence"/>
-            </group>
-            <group>
               <field name="next_invoice_date"/>
               <field name="statut"/>
             </group>
-            <group>
-              <field name="description"/>
-            </group>
-          </sheet>
-          <notebook>
-            <!-- Page équipements -->
-            <page string="Équipements">
-              <field name="equipment_ids" nolabel="1">
-                <!-- liste in-line avec <list> (remplace <tree>) -->
-                <list editable="bottom" string="Équipements du contrat">
-                  <field name="name"/>
-                  <field name="client_id" invisible="1"/>
-                  <!-- si vous avez ajouté product_id sur parc.equipement, vous pouvez le mettre ici :
-                  <field name="product_id"/> -->
+
+            <group string="Équipements à facturer">
+              <field name="equipment_line_ids" nolabel="1">
+                <list editable="bottom" string="Lignes d’équipement">
+                  <field name="equipment_id" string="Équipement"/>
+                  <field name="product_id"   string="Produit" readonly="1"/>
+                  <field name="quantity"     string="Quantité"/>
+                  <field name="price_unit"   string="PU" readonly="1"/>
+                  <field name="subtotal"     string="Total" readonly="1"/>
                 </list>
-                <form string="Détail de l'équipement">
-                  <sheet>
-                    <group>
-                      <field name="name"/>
-                      <field name="client_id"/>
-                      <!-- idem pour product_id -->
-                    </group>
-                  </sheet>
+                <form string="Ligne d’équipement">
+                  <group>
+                    <field name="equipment_id"/>
+                    <field name="quantity"/>
+                    <field name="price_unit" readonly="1"/>
+                    <field name="subtotal"   readonly="1"/>
+                  </group>
+                  <footer>
+                    <button special="cancel" string="Annuler" class="btn-secondary"/>
+                  </footer>
                 </form>
               </field>
-            </page>
-            <!-- Page factures -->
-            <page string="Factures">
-              <field name="facture_ids" readonly="1" nolabel="1">
-                <list string="Factures liées">
-                  <field name="name"/>
-                  <field name="invoice_date"/>
-                  <field name="invoice_date_due"/>
-                  <field name="amount_total"/>
-                  <field name="state"/>
-                </list>
-                <form string="Détail de la facture">
-                  <sheet>
+            </group>
+
+            <group>
+              <field name="description"/>
+              <field name="amount_total" readonly="1" string="Montant total"/>
+            </group>
+
+            <notebook>
+              <page string="Factures liées">
+                <field name="facture_ids" nolabel="1" readonly="1">
+                  <list string="Factures">
+                    <field name="name"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_date_due"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                  </list>
+                  <form string="Facture">
                     <group>
                       <field name="name"/>
                       <field name="invoice_date"/>
@@ -118,21 +71,17 @@
                       <field name="amount_total"/>
                       <field name="state"/>
                     </group>
-                  </sheet>
-                </form>
-              </field>
-            </page>
-          </notebook>
+                    <footer>
+                      <button special="cancel" string="Fermer" class="btn-secondary"/>
+                    </footer>
+                  </form>
+                </field>
+              </page>
+            </notebook>
+
+          </sheet>
         </form>
       </field>
     </record>
-
-    <!-- Action pour afficher la liste des contrats -->
-    <record id="action_parc_contrat_list" model="ir.actions.act_window">
-      <field name="name">Liste des Contrats</field>
-      <field name="res_model">parc.contrat</field>
-      <field name="view_mode">list,form,kanban</field>
-    </record>
-
   </data>
 </odoo>

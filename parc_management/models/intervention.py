@@ -1,5 +1,5 @@
-# parc_management/models/intervention.py
-from odoo import models, fields, api
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api, _
 from datetime import datetime
 
 class ParcIntervention(models.Model):
@@ -16,11 +16,13 @@ class ParcIntervention(models.Model):
         'parc.client',
         string="Client",
         required=True,
+        ondelete='cascade',
     )
     equipement_id = fields.Many2one(
         'parc.equipement',
         string="Équipement",
         required=True,
+        ondelete='cascade',
     )
     technicien_id = fields.Many2one(
         'res.users',
@@ -53,7 +55,7 @@ class ParcIntervention(models.Model):
     def create(self, vals):
         # Fixer la date d'ouverture à la création
         vals.setdefault('date_ouverture', datetime.now())
-        return super().create(vals)
+        return super(ParcIntervention, self).create(vals)
 
     def action_resoudre(self):
         for rec in self:
@@ -63,3 +65,7 @@ class ParcIntervention(models.Model):
     def action_fermer(self):
         for rec in self:
             rec.state = 'ferme'
+
+    def unlink(self):
+        # Utilise ondelete='cascade' pour supprimer automatiquement via la base
+        return super(ParcIntervention, self).unlink()

@@ -1,82 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
-    <!-- Liste des factures -->
-    <record id="view_parc_facture_list" model="ir.ui.view">
-      <field name="name">parc.facture.list</field>
+    <!-- Héritage de la vue de facture standard, avec liste des clients, préremplissage et ligne auto -->
+    <record id="view_move_form_parc_management_autofill" model="ir.ui.view">
+      <field name="name">account.move.form.parc.management.autofill</field>
       <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="priority" eval="20"/>
       <field name="arch" type="xml">
-        <list string="Liste des Factures">
-          <field name="name"/>
-          <field name="contrat_id" string="Contrat"/>
-          <field name="partner_id" string="Client"/>
-          <field name="invoice_date"/>
-          <field name="invoice_date_due"/>
-          <field name="montant_total" string="Montant Total"/>
-          <field name="state"/>
-        </list>
-      </field>
-    </record>
-
-    <!-- Formulaire des factures -->
-    <record id="view_parc_facture_form" model="ir.ui.view">
-      <field name="name">parc.facture.form</field>
-      <field name="model">account.move</field>
-      <field name="arch" type="xml">
-        <form string="Facture">
-          <sheet>
-            <group>
-              <field name="name"/>
-              <field name="contrat_id"/>
-              <field name="partner_id" string="Client"/>
-              <field name="invoice_date"/>
-              <field name="invoice_date_due"/>
-              <field name="montant_total" string="Montant Total"/>
-              <field name="state"/>
-            </group>
-            <notebook>
-              <page string="Lignes de Facture">
-                <field name="invoice_line_ids">
-                  <list string="Lignes de facture" editable="bottom">
-                    <field name="equipement_id"/>
-                    <field name="name"/>
-                    <field name="quantity"/>
-                    <field name="price_unit"/>
-                    <field name="price_subtotal" string="Montant"/>
-                  </list>
-                </field>
-              </page>
-            </notebook>
-          </sheet>
-          <footer>
-            <button name="action_post"
-                    type="object"
-                    string="Valider Facture"
-                    class="oe_highlight"
-                    invisible="state != 'draft'"/>
-          </footer>
-        </form>
-      </field>
-    </record>
-
-    <!-- Kanban des factures -->
-    <record id="view_parc_facture_kanban" model="ir.ui.view">
-      <field name="name">parc.facture.kanban</field>
-      <field name="model">account.move</field>
-      <field name="arch" type="xml">
-        <kanban>
-          <templates>
-            <t t-name="kanban-card">
-              <div class="oe_kanban_card">
-                <strong><field name="name"/></strong>
-                <div>Contrat: <field name="contrat_id"/></div>
-                <div>Client: <field name="partner_id"/></div>
-                <div>Montant: <field name="montant_total"/></div>
-                <div>Statut: <field name="state"/></div>
-              </div>
-            </t>
-          </templates>
-        </kanban>
+        <!-- Positionner les champs juste après le client (res.partner) -->
+        <xpath expr="//field[@name='partner_id']" position="after">
+          <group>
+            <!-- Sélection du client depuis parc.client -->
+            <field name="client_id" widget="many2one"/>
+            <!-- Contrat filtré sur le client -->
+            <field name="contrat_id" domain="[('client_id','=', client_id)]"/>
+            <field name="equipement_id" readonly="1"/>
+            <field name="montant_total" readonly="1"/>
+          </group>
+        </xpath>
+        <!-- Rendre la liste de lignes éditable pour injection automatique -->
+        <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+          <attribute name="editable">bottom</attribute>
+        </xpath>
       </field>
     </record>
   </data>

@@ -1,11 +1,21 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_parc_client_manager,Parc Client Manager,model_parc_client,base.group_system,1,1,1,1
-access_parc_client_user,Parc Client User,model_parc_client,base.group_user,1,0,0,0
-access_parc_contrat_manager,Parc Contrat Manager,model_parc_contrat,base.group_system,1,1,1,1
-access_parc_contrat_user,Parc Contrat User,model_parc_contrat,base.group_user,1,0,0,0
-access_parc_facture_manager,Parc Facture Manager,model_account_move,base.group_system,1,1,1,1
-access_parc_facture_user,Parc Facture User,model_account_move,base.group_user,1,0,0,0
-access_parc_equipement_manager,Parc Équipement Manager,model_parc_equipement,base.group_system,1,1,1,1
-access_parc_equipement_user,Parc Équipement User,model_parc_equipement,base.group_user,1,0,0,0
-access_parc_intervention_manager,Parc Intervention Manager,model_parc_intervention,base.group_system,1,1,1,1
-access_parc_intervention_user,Parc Intervention User,model_parc_intervention,base.group_user,1,0,0,0
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_parc_client_manager","Parc Client Manager","model_parc_client","base.group_system",1,1,1,1
+"access_parc_client_user","Parc Client User","model_parc_client","base.group_user",1,0,0,0
+
+"access_parc_contrat_manager","Parc Contrat Manager","model_parc_contrat","base.group_system",1,1,1,1
+"access_parc_contrat_user","Parc Contrat User","model_parc_contrat","base.group_user",1,0,0,0
+
+"access_parc_contrat_line_manager","Parc Contrat Line Manager","model_parc_contrat_line","base.group_system",1,1,1,1
+"access_parc_contrat_line_user","Parc Contrat Line User","model_parc_contrat_line","base.group_user",1,0,0,0
+
+"access_parc_equipement_manager","Parc Équipement Manager","model_parc_equipement","base.group_system",1,1,1,1
+"access_parc_equipement_user","Parc Équipement User","model_parc_equipement","base.group_user",1,0,0,0
+
+"access_parc_intervention_manager","Parc Intervention Manager","model_parc_intervention","base.group_system",1,1,1,1
+"access_parc_intervention_user","Parc Intervention User","model_parc_intervention","base.group_user",1,0,0,0
+
+"access_parc_facture_manager","Parc Facture Manager","model_account_move","base.group_system",1,1,1,1
+"access_parc_facture_user","Parc Facture User","model_account_move","base.group_user",1,0,0,0
+
+"access_parc_ticket_user","parc.ticket user","model_parc_ticket","base.group_portal",1,1,1,0
+"access_parc_ticket_internal","parc.ticket internal","model_parc_ticket","base.group_user",1,1,1,1

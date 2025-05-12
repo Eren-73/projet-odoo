@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- list view for Tickets -->
+    <record id="view_parc_ticket_list" model="ir.ui.view">
+      <field name="name">parc.ticket.list</field>
+      <field name="model">parc.ticket</field>
+      <field name="type">list</field>
+      <field name="arch" type="xml">
+        <list string="Tickets">
+          <field name="name"/>
+          <field name="partner_id"/>
+          <field name="date_open"/>
+          <field name="state"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Form view for Tickets -->
+    <record id="view_parc_ticket_form" model="ir.ui.view">
+      <field name="name">parc.ticket.form</field>
+      <field name="model">parc.ticket</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ticket">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="partner_id"/>
+              <field name="date_open"/>
+              <field name="state"/>
+            </group>
+            <notebook>
+              <page string="Description">
+                <field name="description" nolabel="1"/>
+              </page>
+            </notebook>
+          </sheet>
+          <!-- Chatter natif d'Odoo pour les messages -->
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+          <footer>
+            <button name="action_ticket_close"
+                    type="object"
+                    string="Clôturer"
+                    class="btn-primary"
+                    modifiers="{'invisible': [['state', '!=', 'open']]}"/>
+            <button special="cancel"
+                    string="Annuler"
+                    class="btn-secondary"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- Action window for Tickets -->
+    <record id="action_parc_ticket" model="ir.actions.act_window">
+      <field name="name">Tickets</field>
+      <field name="res_model">parc.ticket</field>
+      <field name="view_mode">list,form,kanban</field>
+      <field name="view_id" ref="view_parc_ticket_list"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Créez votre premier ticket
+        </p>
+      </field>
+    </record>
+
+    <!-- Menu back-office Tickets -->
+    <menuitem id="menu_parc_ticket_root"
+              name="Tickets"
+              parent="parc_management.menu_parc_management_root"
+              sequence="60"/>
+    <menuitem id="menu_parc_ticket"
+              name="Liste"
+              parent="menu_parc_ticket_root"
+              action="action_parc_ticket"
+              sequence="1"/>
+
+  </data>
+</odoo>

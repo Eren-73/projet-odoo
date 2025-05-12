@@ -17,6 +17,10 @@ class AccountMove(models.Model):
         store=True,
         readonly=True,
     )
+
+    # lien vers l'équipement (optionnel)
+    equipement_id = fields.Many2one('parc.equipement', string="Équipement")
+
     # Montant total de la facture
     montant_total = fields.Float(
         string="Montant Total",
